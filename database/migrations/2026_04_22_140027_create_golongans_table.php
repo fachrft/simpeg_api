@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('golongans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_golongan')->unique();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

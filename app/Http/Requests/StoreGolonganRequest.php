@@ -24,6 +24,7 @@ class StoreGolonganRequest extends FormRequest
     {
         return [
             'nama_golongan' => 'required|string|max:255|unique:golongans,nama_golongan',
+            'keterangan' => 'nullable|string|max:255',
         ];
     }
 }
