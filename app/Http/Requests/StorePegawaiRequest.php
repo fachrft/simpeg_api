@@ -36,7 +36,7 @@ class StorePegawaiRequest extends FormRequest
             'unit_kerja_id' => 'required|exists:unit_kerjas,id',
             'no_hp' => 'nullable|string|max:255',
             'npwp' => 'nullable|string|max:255',
-            'foto' => 'nullable|string|max:255'
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }
