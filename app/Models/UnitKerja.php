@@ -22,6 +22,11 @@ class UnitKerja extends Model
         return $this->hasMany(UnitKerja::class, 'parent_id');
     }
 
+    public function allChildren()
+    {
+        return $this->children()->with('allChildren');
+    }
+
     public function pegawais()
     {
         return $this->hasMany(Pegawai::class);

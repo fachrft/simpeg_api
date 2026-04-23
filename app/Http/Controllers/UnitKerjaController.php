@@ -10,9 +10,17 @@ class UnitKerjaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $unitKerjas = UnitKerja::whereNull('parent_id')
+            ->with('allChildren')
+            ->get();
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Data Unit Kerja Tree',
+          'data' => $unitKerjas,
+        ], 200);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Golongan;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreGolonganRequest;
 use App\Http\Requests\UpdateGolonganRequest;
 
@@ -13,7 +14,11 @@ class GolonganController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Golongan',
+            'data' => Golongan::all(),
+        ], 200);
     }
 
     /**
