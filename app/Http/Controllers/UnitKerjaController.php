@@ -12,9 +12,7 @@ class UnitKerjaController extends Controller
      */
     public function index(Request $request)
     {
-        $unitKerjas = UnitKerja::whereNull('parent_id')
-            ->with('allChildren')
-            ->get();
+        $unitKerjas = UnitKerja::all();
 
         return response()->json([
           'success' => true,

@@ -18,7 +18,8 @@ class GolonganFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama_golongan' => $this->faker->unique()->randomElement(['I/a', 'I/b', 'II/a', 'II/b', 'III/a', 'III/b', 'IV/a', 'IV/b']),
+            'keterangan' => $this->faker->sentence(),
         ];
     }
 }

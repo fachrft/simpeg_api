@@ -18,7 +18,8 @@ class UnitKerjaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama_unit' => $this->faker->company(),
+            'parent_id' => null,
         ];
     }
 }

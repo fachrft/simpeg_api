@@ -14,25 +14,37 @@ class PegawaiSeeder extends Seeder
      */
     public function run(): void
     {
-        $golongan = Golongan::first();
-        $unitKerja = UnitKerja::whereNotNull('parent_id')->first();
+        $golongans = Golongan::all();
+        $unitKerjas = UnitKerja::all();
 
-        if ($golongan && $unitKerja) {
+        if ($golongans->isEmpty() || $unitKerjas->isEmpty()) {
+            $this->command->warn('Golongan or Unit Kerja table is empty. Please seed them first.');
+            return;
+        }
+
+        $faker = \Faker\Factory::create('id_ID');
+
+        for ($i = 0; $i < 30; $i++) {
+            $gender = $faker->randomElement(['L', 'P']);
+            $firstName = $gender == 'L' ? $faker->firstNameMale() : $faker->firstNameFemale();
+            $lastName = $faker->lastName();
+            $nama = $firstName . ' ' . $lastName;
+
             Pegawai::create([
-                'nip' => '199001012020121001',
-                'nama' => 'Budi Santoso, S.Kom',
-                'tempat_lahir' => 'Jakarta',
-                'tanggal_lahir' => '1990-01-01',
-                'alamat' => 'Jl. Kebon Kacang No. 10',
-                'jenis_kelamin' => 'L',
-                'golongan_id' => $golongan->id,
-                'eselon' => '-',
-                'jabatan' => 'Pranata Komputer',
-                'tempat_tugas' => 'Kantor Pusat',
-                'agama' => 'Islam',
-                'unit_kerja_id' => $unitKerja->id,
-                'no_hp' => '081234567890',
-                'npwp' => '12.345.678.9-012.000',
+                'nip' => $faker->unique()->numerify('##################'),
+                'nama' => $nama . $faker->randomElement([', S.Kom', ', M.T.', ', S.E.', ', M.M.', '']),
+                'tempat_lahir' => $faker->city(),
+                'tanggal_lahir' => $faker->date('Y-m-d', '2000-01-01'),
+                'alamat' => $faker->address(),
+                'jenis_kelamin' => $gender,
+                'golongan_id' => $golongans->random()->id,
+                'eselon' => $faker->randomElement(['I', 'II', 'III', 'IV', '-']),
+                'jabatan' => $faker->jobTitle(),
+                'tempat_tugas' => $faker->city(),
+                'agama' => $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']),
+                'unit_kerja_id' => $unitKerjas->random()->id,
+                'no_hp' => $faker->phoneNumber(),
+                'npwp' => $faker->numerify('##.###.###.#-###.###'),
             ]);
         }
     }
